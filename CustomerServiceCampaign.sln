@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# 
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{625AA5A1-EC30-4DBB-8F5F-2075F62E949A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomerServiceCampaign.Api", "src\CustomerServiceCampaign.Api\CustomerServiceCampaign.Api.csproj", "{6DB34607-F291-4853-AF6D-C6578AC9EBC7}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6DB34607-F291-4853-AF6D-C6578AC9EBC7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6DB34607-F291-4853-AF6D-C6578AC9EBC7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6DB34607-F291-4853-AF6D-C6578AC9EBC7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6DB34607-F291-4853-AF6D-C6578AC9EBC7}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{6DB34607-F291-4853-AF6D-C6578AC9EBC7} = {625AA5A1-EC30-4DBB-8F5F-2075F62E949A}
+	EndGlobalSection
+EndGlobal
