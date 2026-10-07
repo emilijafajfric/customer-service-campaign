@@ -1,6 +1,12 @@
-@CustomerServiceCampaign.Api_HostAddress = http://localhost:5179
+@host = http://localhost:5179
 
-GET {{CustomerServiceCampaign.Api_HostAddress}}/weatherforecast/
-Accept: application/json
+POST {{host}}/api/rewards
+Content-Type: application/json
+
+{
+  "campaignId": "11111111-1111-1111-1111-111111111111",
+  "agentId": "33333333-3333-3333-3333-333333333333",
+  "customerId": "C-006"
+}
 
 ###
