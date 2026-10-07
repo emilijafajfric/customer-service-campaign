@@ -4,6 +4,7 @@ using CustomerServiceCampaign.Api.Services.Rewards;
 using Microsoft.EntityFrameworkCore;
 using CustomerServiceCampaign.Api.Data.Seed;
 using CustomerServiceCampaign.Api.Services.Purchases;
+using CustomerServiceCampaign.Api.Services.Campaigns;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,6 +22,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 builder.Services.AddScoped<ICustomerService, MockCustomerService>();
 builder.Services.AddScoped<IRewardService, RewardService>();
 builder.Services.AddScoped<IPurchaseImportService, PurchaseImportService>();
+builder.Services.AddScoped<ICampaignService, CampaignService>();
 
 var app = builder.Build();
 
