@@ -10,3 +10,27 @@ Content-Type: application/json
 }
 
 ###
+
+POST {{host}}/api/purchases/import
+Content-Type: multipart/form-data; boundary=Boundary
+
+--Boundary
+Content-Disposition: form-data; name="file"; filename="purchases.csv"
+Content-Type: text/csv
+
+< ../../samples/purchases.csv
+--Boundary--
+
+###
+
+POST {{host}}/api/purchases/import
+Content-Type: multipart/form-data; boundary=Boundary
+
+--Boundary
+Content-Disposition: form-data; name="file"; filename="invalid-purchases.csv"
+Content-Type: text/csv
+
+< ../../samples/invalid-purchases.csv
+--Boundary--
+
+###
