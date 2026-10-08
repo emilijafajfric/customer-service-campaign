@@ -1,5 +1,6 @@
 using CustomerServiceCampaign.Api.Services.Purchases;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CustomerServiceCampaign.Api.Controllers;
 
@@ -8,6 +9,7 @@ namespace CustomerServiceCampaign.Api.Controllers;
 public class PurchasesController(
     IPurchaseImportService purchaseImportService) : ControllerBase
 {
+    [Authorize(Roles = "Admin")]
     [HttpPost("import")]
     public async Task<IActionResult> Import(IFormFile file)
     {

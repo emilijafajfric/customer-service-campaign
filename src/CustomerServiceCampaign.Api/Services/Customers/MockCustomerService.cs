@@ -9,7 +9,8 @@ public class MockCustomerService : ICustomerService
         "C-003",
         "C-004",
         "C-005",
-        "C-006"
+        "C-006",
+        "C-007",
     ];
 
     public Task<bool> CustomerExistsAsync(string customerId)

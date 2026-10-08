@@ -2,6 +2,7 @@ using CustomerServiceCampaign.Api.Contracts.Requests;
 using CustomerServiceCampaign.Api.Contracts.Responses;
 using CustomerServiceCampaign.Api.Services.Rewards;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CustomerServiceCampaign.Api.Controllers;
 
@@ -9,6 +10,7 @@ namespace CustomerServiceCampaign.Api.Controllers;
 [Route("api/[controller]")]
 public class RewardsController(IRewardService rewardService) : ControllerBase
 {
+    [Authorize(Roles = "Agent")]
     [HttpPost]
     public async Task<IActionResult> CreateReward(CreateRewardRequest request)
     {

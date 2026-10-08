@@ -1,5 +1,6 @@
 using CustomerServiceCampaign.Api.Services.Campaigns;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CustomerServiceCampaign.Api.Controllers;
 
@@ -8,6 +9,7 @@ namespace CustomerServiceCampaign.Api.Controllers;
 public class CampaignsController(
     ICampaignService campaignService) : ControllerBase
 {
+    [Authorize(Roles = "Admin")]
     [HttpGet("{campaignId:guid}/results")]
     public async Task<IActionResult> GetResults(Guid campaignId)
     {
