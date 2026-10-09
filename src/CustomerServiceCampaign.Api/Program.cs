@@ -23,7 +23,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlite(
         builder.Configuration.GetConnectionString("DefaultConnection")));
 
-builder.Services.AddScoped<ICustomerService, MockCustomerService>();
+builder.Services.AddHttpClient<ICustomerService, SoapCustomerService>();
 builder.Services.AddScoped<IRewardService, RewardService>();
 builder.Services.AddScoped<IPurchaseImportService, PurchaseImportService>();
 builder.Services.AddScoped<ICampaignService, CampaignService>();

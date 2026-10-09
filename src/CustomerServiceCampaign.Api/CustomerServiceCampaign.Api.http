@@ -2,49 +2,6 @@
 @agentToken = YOUR_AGENT_TOKEN
 @adminToken = YOUR_ADMIN_TOKEN
 
-POST {{host}}/api/rewards
-Content-Type: application/json
-
-{
-  "campaignId": "11111111-1111-1111-1111-111111111111",
-  "agentId": "33333333-3333-3333-3333-333333333333",
-  "customerId": "C-006"
-}
-
-###
-
-POST {{host}}/api/purchases/import
-Content-Type: multipart/form-data; boundary=Boundary
-
---Boundary
-Content-Disposition: form-data; name="file"; filename="purchases.csv"
-Content-Type: text/csv
-
-< ../../samples/purchases.csv
---Boundary--
-
-###
-
-POST {{host}}/api/purchases/import
-Content-Type: multipart/form-data; boundary=Boundary
-
---Boundary
-Content-Disposition: form-data; name="file"; filename="invalid-purchases.csv"
-Content-Type: text/csv
-
-< ../../samples/invalid-purchases.csv
---Boundary--
-
-###
-
-GET {{host}}/api/campaigns/11111111-1111-1111-1111-111111111111/results
-Accept: application/json
-
-###
-
-GET {{host}}/api/campaigns/99999999-9999-9999-9999-999999999999/results
-Accept: application/json
-
 ### Agent login
 POST {{host}}/api/auth/login
 Content-Type: application/json
@@ -54,17 +11,17 @@ Content-Type: application/json
   "password": "Agent123!"
 }
 
-### Reward without token
+### Reward without token - expected 401
 POST {{host}}/api/rewards
 Content-Type: application/json
 
 {
   "campaignId": "11111111-1111-1111-1111-111111111111",
   "agentId": "22222222-2222-2222-2222-222222222222",
-  "customerId": "C-007"
+  "customerId": "1"
 }
 
-### Reward as Agent
+### Reward real SOAP customer as Agent
 POST {{host}}/api/rewards
 Authorization: Bearer {{agentToken}}
 Content-Type: application/json
@@ -72,10 +29,21 @@ Content-Type: application/json
 {
   "campaignId": "11111111-1111-1111-1111-111111111111",
   "agentId": "22222222-2222-2222-2222-222222222222",
-  "customerId": "C-007"
+  "customerId": "1"
 }
 
-### Purchase import as Agent
+### Reward another SOAP customer as Agent
+POST {{host}}/api/rewards
+Authorization: Bearer {{agentToken}}
+Content-Type: application/json
+
+{
+  "campaignId": "11111111-1111-1111-1111-111111111111",
+  "agentId": "22222222-2222-2222-2222-222222222222",
+  "customerId": "2"
+}
+
+### Purchase import as Agent - expected 403
 POST {{host}}/api/purchases/import
 Authorization: Bearer {{agentToken}}
 Content-Type: multipart/form-data; boundary=Boundary
@@ -96,11 +64,6 @@ Content-Type: application/json
   "password": "Admin123!"
 }
 
-### Campaign results as Admin
-GET {{host}}/api/campaigns/11111111-1111-1111-1111-111111111111/results
-Authorization: Bearer {{adminToken}}
-Accept: application/json
-
 ### Purchase import as Admin
 POST {{host}}/api/purchases/import
 Authorization: Bearer {{adminToken}}
@@ -113,4 +76,24 @@ Content-Type: text/csv
 < ../../samples/purchases.csv
 --Boundary--
 
-###
+### Invalid purchase import as Admin - expected 400
+POST {{host}}/api/purchases/import
+Authorization: Bearer {{adminToken}}
+Content-Type: multipart/form-data; boundary=Boundary
+
+--Boundary
+Content-Disposition: form-data; name="file"; filename="invalid-purchases.csv"
+Content-Type: text/csv
+
+< ../../samples/invalid-purchases.csv
+--Boundary--
+
+### Campaign results as Admin
+GET {{host}}/api/campaigns/11111111-1111-1111-1111-111111111111/results
+Authorization: Bearer {{adminToken}}
+Accept: application/json
+
+### Unknown campaign as Admin - expected 404
+GET {{host}}/api/campaigns/99999999-9999-9999-9999-999999999999/results
+Authorization: Bearer {{adminToken}}
+Accept: application/json
